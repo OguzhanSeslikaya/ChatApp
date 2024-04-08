@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option csharp_namespace = "Chat.ChatRoom.Server";
+
+import "google/protobuf/empty.proto";
+package ChatRoom;
+
+service ChatRoom {
+  rpc textChatStream (google.protobuf.Empty) returns (stream TextChatStreamResponse);
+  rpc voiceChatStream (google.protobuf.Empty) returns (stream VoiceChatStreamResponse);
+  rpc sendVoiceStream (stream SendVoiceStreamRequest) returns (google.protobuf.Empty);
+  rpc sendText (SendTextRequest) returns (google.protobuf.Empty);
+}
+
+message TextChatStreamResponse{
+	string message = 1;
+	string username = 2;
+	string date = 3;
+}
+
+message SendTextRequest{
+	string message = 1;
+	int32 chatId = 2;
+}
+
+message VoiceChatStreamResponse{
+	bytes voiceBytes = 1;
+}
+
+message SendVoiceStreamRequest{
+	int32 chatId = 1;
+	bytes voiceBytes = 2;
+}

@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+option csharp_namespace = "Chat.Lobby.Server";
+
+package Lobby;
+
+service Lobby {
+  rpc register (CreateUserRequest) returns (CreateUserResponse);
+  rpc login (LoginUserRequest) returns (LoginUserResponse);
+  rpc joinChat (JoinChatRequest) returns (JoinChatResponse);
+  rpc createChat (CreateChatRequest) returns (CreateChatResponse);
+}
+
+message CreateUserRequest{
+	string username = 1;
+	string password = 2;
+}
+message CreateUserResponse{
+	bool succeeded = 1;
+	string message = 2;
+}
+
+message LoginUserRequest{
+	string username = 1;
+	string password = 2;
+}
+message LoginUserResponse{
+	bool succeeded = 1;
+	string message = 2;
+	string token = 3;
+}
+
+message CreateChatRequest{
+	string password = 1;
+}
+message CreateChatResponse{
+	bool succeeded = 1;
+	int32 chatId = 2;
+	string message = 3;
+}
+
+message JoinChatRequest{
+	int32 chatId = 1;
+	string chatPasswd = 2;
+}
+message JoinChatResponse{
+	bool succeeded = 1;
+	string message = 2;
+	int32 chatId = 3;
+}
